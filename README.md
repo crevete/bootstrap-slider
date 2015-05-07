@@ -14,7 +14,13 @@ Want to use bower? `bower install seiyria-bootstrap-slider`
 
 Want to use npm? `npm install bootstrap-slider`
 
-Then load the plugin CSS and JavaScript into your web page, and everything should work!
+__NOTE for NPM users__: In order to keep the version numbers in our dist/ file consistent with our Github tags, we do a patch version bump, generate a new dist, and create a commit/tag on postpublish.
+
+This does mean the Github repo will always be one patch commit off of what is published to NPM. Note that this will not affect functionality, and is only used to keep package management system files and the dist file version numbers in sync.
+
+Basic Setup
+============
+Load the plugin CSS and JavaScript into your web page, and everything should work!
 
 Remember to load the plugin code after loading the Bootstrap CSS and JQuery.
 
@@ -48,7 +54,10 @@ var value = mySlider.slider('getValue');
 		.slider('setValue', 7);
 ```
 
-If there is already a JQuery plugin named _slider_ bound to the namespace, then this plugin will take on the alternate namespace _bootstrapSlider_.
+What if there is already a _slider_ plugin bound to the JQuery namespace?
+======================
+
+If there is already a JQuery plugin named _slider_ bound to the JQuery namespace, then this plugin will take on the alternate namespace _bootstrapSlider_.
 
 ```
 // Instantiate a slider
@@ -83,9 +92,9 @@ mySlider
 	.setValue(7);
 ```
 
-Loading as CommonJS module
+Using as CommonJS module
 =======
-bootstrap-slider can be loaded as a CommonJS module via [Browserify](https://github.com/substack/node-browserify), [Webpack](https://github.com/webpack/webpack), or some other library.
+bootstrap-slider can be loaded as a CommonJS module via [Browserify](https://github.com/substack/node-browserify), [Webpack](https://github.com/webpack/webpack), or some other build tool.
 
 ```
 var Slider = require("bootstrap-slider");
@@ -125,6 +134,7 @@ Options can be passed either as a data (data-slider-foo) attribute, or as part o
 | formatter |	function |	returns the plain value |	formatter callback. Return the value wanted to be displayed in the tooltip |
 | natural_arrow_keys | bool | false | The natural order is used for the arrow keys. Arrow up select the upper slider value for vertical sliders, arrow right the righter slider value for a horizontal slider - no matter if the slider was reversed or not. By default the arrow keys are oriented by arrow up/right to the higher slider value, arrow down/left to the lower slider value. |
 | ticks | array | [ ] | Used to define the values of ticks. Tick marks are indicators to denote special values in the range. This option overwrites min and max options. |
+| ticks_positions | array | [ ] | Defines the positions of the tick values in percentages. The first value should alwasy be 0, the last value should always be 100 percent. |
 | ticks_labels | array | [ ] | Defines the labels below the tick marks. Accepts HTML input. |
 | ticks_snap_bounds | float | 0 | Used to define the snap bounds of a tick. Snaps to the tick if value is within these bounds. |
 | scale | string | 'linear' | Set to 'logarithmic' to use a logarithmic scale. |
@@ -160,13 +170,15 @@ Events
 | slideEnabled | This event fires when the slider is enabled | N/A |
 | slideDisabled | This event fires when the slider is disabled | N/A |
 
-Version Bumping (Maintainers Only)
+Version Bumping and Publishing (Maintainers Only)
 =======
 To bump the version number across all the various packagement systems the plugin is registered with, please use the [grunt bump](https://github.com/vojtajina/grunt-bump) plugin.
 
 * _grunt bump:patch_ - patch version bump, __0.0.0 -> 0.0.1__
 * _grunt bump:minor_ - minor version bump, __0.0.0 -> 0.1.0__
 * _grunt bump:major_ - major version bump, __0.0.0 -> 1.0.0__
+
+After bumping, type `npm publish` to update on NPM.
 
 
 Other Platforms & Libraries
